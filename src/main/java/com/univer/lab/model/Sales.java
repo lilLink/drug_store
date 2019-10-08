@@ -1,6 +1,8 @@
 package com.univer.lab.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
@@ -8,6 +10,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Sales {
 
     private Long saleId;
@@ -32,5 +36,15 @@ public class Sales {
     @Override
     public int hashCode() {
         return Objects.hash(saleId, realizationDate, realization, drug);
+    }
+
+    @Override
+    public String toString() {
+        return "Sales{" +
+                "saleId=" + saleId +
+                ", realizationDate=" + realizationDate +
+                ", realization=" + realization +
+                ", drug=" + drug +
+                '}';
     }
 }

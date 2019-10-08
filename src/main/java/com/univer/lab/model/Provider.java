@@ -1,6 +1,8 @@
 package com.univer.lab.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Provider {
 
     private Long providerId;
@@ -29,5 +33,14 @@ public class Provider {
     @Override
     public int hashCode() {
         return Objects.hash(providerId, providerName, storages);
+    }
+
+    @Override
+    public String toString() {
+        return "Provider{" +
+                "providerId=" + providerId +
+                ", providerName='" + providerName + '\'' +
+                ", storages=" + storages +
+                '}';
     }
 }

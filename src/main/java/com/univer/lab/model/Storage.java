@@ -1,6 +1,8 @@
 package com.univer.lab.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.Objects;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Storage {
 
     private Long storageId;
@@ -19,14 +23,6 @@ public class Storage {
     private List<Long> productPrice;
 
     private List<Provider> providers;
-
-    public Storage(Long storageId, List<String> productName, Long amount, List<Long> productPrice, List<Provider> providers) {
-        this.storageId = storageId;
-        this.productName = productName;
-        this.amount = amount;
-        this.productPrice = productPrice;
-        this.providers = providers;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -43,5 +39,16 @@ public class Storage {
     @Override
     public int hashCode() {
         return Objects.hash(storageId, productName, amount, productPrice, providers);
+    }
+
+    @Override
+    public String toString() {
+        return "Storage{" +
+                "storageId=" + storageId +
+                ", productName=" + productName +
+                ", amount=" + amount +
+                ", productPrice=" + productPrice +
+                ", providers=" + providers +
+                '}';
     }
 }

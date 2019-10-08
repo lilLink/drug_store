@@ -1,12 +1,16 @@
 package com.univer.lab.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Drug {
 
     private Long drugId;
@@ -35,5 +39,16 @@ public class Drug {
     @Override
     public int hashCode() {
         return Objects.hash(drugId, name, price, productCountry, storage);
+    }
+
+    @Override
+    public String toString() {
+        return "Drug{" +
+                "drugId=" + drugId +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", productCountry='" + productCountry + '\'' +
+                ", storage=" + storage +
+                '}';
     }
 }
