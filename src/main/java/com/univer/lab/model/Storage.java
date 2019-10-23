@@ -1,9 +1,6 @@
 package com.univer.lab.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,15 +9,14 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Storage {
 
     private Long storageId;
 
-    private List<String> productName;
+    private List<Drug> drugs;
 
-    private Long amount;
-
-    private List<Long> productPrice;
+    private List<CountDrug> countDrugs;
 
     private List<Provider> providers;
 
@@ -30,24 +26,22 @@ public class Storage {
         if (o == null || getClass() != o.getClass()) return false;
         Storage storage = (Storage) o;
         return Objects.equals(storageId, storage.storageId) &&
-                Objects.equals(productName, storage.productName) &&
-                Objects.equals(amount, storage.amount) &&
-                Objects.equals(productPrice, storage.productPrice) &&
+                Objects.equals(drugs, storage.drugs) &&
+                Objects.equals(countDrugs, storage.countDrugs) &&
                 Objects.equals(providers, storage.providers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(storageId, productName, amount, productPrice, providers);
+        return Objects.hash(storageId, drugs, countDrugs, providers);
     }
 
     @Override
     public String toString() {
         return "Storage{" +
                 "storageId=" + storageId +
-                ", productName=" + productName +
-                ", amount=" + amount +
-                ", productPrice=" + productPrice +
+                ", drugs=" + drugs +
+                ", countDrugs=" + countDrugs +
                 ", providers=" + providers +
                 '}';
     }

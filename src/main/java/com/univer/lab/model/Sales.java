@@ -1,22 +1,20 @@
 package com.univer.lab.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Sales {
 
     private Long saleId;
 
-    private Date realizationDate;
+    private LocalDate realizationDate;
 
     private Long realization;
 

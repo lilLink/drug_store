@@ -1,9 +1,6 @@
 package com.univer.lab.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Objects;
 
@@ -11,6 +8,7 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Drug {
 
     private Long drugId;
@@ -19,10 +17,9 @@ public class Drug {
 
     private Long price;
 
-    private String productCountry;
+    private String country;
 
     private Storage storage;
-
 
     @Override
     public boolean equals(Object o) {
@@ -32,13 +29,13 @@ public class Drug {
         return Objects.equals(drugId, drug.drugId) &&
                 Objects.equals(name, drug.name) &&
                 Objects.equals(price, drug.price) &&
-                Objects.equals(productCountry, drug.productCountry) &&
+                Objects.equals(country, drug.country) &&
                 Objects.equals(storage, drug.storage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(drugId, name, price, productCountry, storage);
+        return Objects.hash(drugId, name, price, country, storage);
     }
 
     @Override
@@ -47,7 +44,7 @@ public class Drug {
                 "drugId=" + drugId +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", productCountry='" + productCountry + '\'' +
+                ", country='" + country + '\'' +
                 ", storage=" + storage +
                 '}';
     }
