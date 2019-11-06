@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Sales>
+    <saleId>1</saleId>
+    <realizationDate>2019-04-10</realizationDate>
+    <realization>2000</realization>
+    <drug>
+        <drugId>1</drugId>
+        <name>Pantenol</name>
+        <price>120</price>
+        <country>Germany</country>
+        <storage>
+            <storageId>1</storageId>
+            <providers>
+                <providers>
+                    <providerId>1</providerId>
+                    <providerName>C&amp;C</providerName>
+                </providers>
+            </providers>
+        </storage>
+    </drug>
+</Sales>

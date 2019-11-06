@@ -2,6 +2,12 @@ package com.univer.lab.model;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 @Getter
@@ -9,17 +15,32 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@XmlRootElement(name = "Drug")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Drug {
 
+    @XmlElement
+    @NotNull
     private Long drugId;
 
+    @XmlElement
+    @NotNull(message = "Name drug must be not null")
+    @Size(min = 3, max = 32, message ="{Size.name}" )
     private String name;
 
+    @XmlElement
+    @NotNull(message = "Price must be not null")
     private Long price;
 
+    @XmlElement
+    @NotNull(message = "Country must be not null")
+    @Size(min = 4, max = 24, message = "{Size.country}")
     private String country;
 
+    @XmlElement
+    @NotNull(message = "Storage must be not null")
     private Storage storage;
+
 
     @Override
     public boolean equals(Object o) {

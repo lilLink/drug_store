@@ -21,14 +21,14 @@ public class JsonParser extends Parser<Sales> {
     @Override
     public Optional<Sales> parse(){
         try {
-            return this.deserealizationJson(path);
+            return this.deserializationJson(path);
         } catch (IOException e){
             e.printStackTrace();
             return Optional.empty();
         }
     }
 
-    private Optional<Sales> deserealizationJson(String path) throws IOException{
+    private Optional<Sales> deserializationJson(String path) throws IOException{
         File file = new File(path);
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapterJson()).create();

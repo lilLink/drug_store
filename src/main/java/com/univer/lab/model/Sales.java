@@ -1,7 +1,15 @@
 package com.univer.lab.model;
 
+import com.univer.lab.adapter.LocalDateAdapterXml;
 import lombok.*;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -10,14 +18,24 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@XmlRootElement(name = "Sales")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Sales {
 
+    @XmlElement
+    @NotNull
     private Long saleId;
 
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapterXml.class)
     private LocalDate realizationDate;
 
+    @XmlElement
+    @NotNull(message = "Summation price must be not null")
     private Long realization;
 
+    @XmlElement
+    @NotNull(message = "Drug must be not null")
     private Drug drug;
 
     @Override
