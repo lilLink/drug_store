@@ -29,6 +29,7 @@ public class XmlParserTest {
         Drug drug = Drug.builder()
                 .drugId(1L)
                 .name("Pantenol")
+                .count(42L)
                 .price(120L)
                 .country("Germany")
                 .build();
@@ -37,26 +38,16 @@ public class XmlParserTest {
                 .storageId(1L)
                 .build();
 
-        List<CountDrug> countDrugs = new ArrayList<>();
-        CountDrug countDrug = CountDrug.builder()
-                .count(4L)
-                .build();
-
-
         List<Provider> providers = new ArrayList<>();
         Provider provider = Provider.builder()
                 .providerId(1L)
                 .providerName("C&C")
                 .build();
 
-        countDrug.setDrug(drug);
-        countDrugs.add(countDrug);
-        //storage.setCountDrugs(countDrugs);
         providers.add(provider);
         storage.setProviders(providers);
 
         drug.setStorage(storage);
-        //drug.setCountDrug(countDrug);
 
         sales.setDrug(drug);
 

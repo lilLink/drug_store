@@ -33,6 +33,10 @@ public class Drug {
     private Long price;
 
     @XmlElement
+    @NotNull
+    private Long count;
+
+    @XmlElement
     @NotNull(message = "Country must be not null")
     @Size(min = 4, max = 24, message = "{Size.country}")
     private String country;
@@ -40,7 +44,6 @@ public class Drug {
     @XmlElement
     @NotNull(message = "Storage must be not null")
     private Storage storage;
-
 
     @Override
     public boolean equals(Object o) {
@@ -50,13 +53,14 @@ public class Drug {
         return Objects.equals(drugId, drug.drugId) &&
                 Objects.equals(name, drug.name) &&
                 Objects.equals(price, drug.price) &&
+                Objects.equals(count, drug.count) &&
                 Objects.equals(country, drug.country) &&
                 Objects.equals(storage, drug.storage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(drugId, name, price, country, storage);
+        return Objects.hash(drugId, name, price, count, country, storage);
     }
 
     @Override
@@ -65,6 +69,7 @@ public class Drug {
                 "drugId=" + drugId +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", count=" + count +
                 ", country='" + country + '\'' +
                 ", storage=" + storage +
                 '}';

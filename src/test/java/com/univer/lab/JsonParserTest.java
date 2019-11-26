@@ -30,6 +30,7 @@ public class JsonParserTest {
         Drug drug = Drug.builder()
                 .drugId(1L)
                 .name("Pantenol")
+                .count(20L)
                 .price(120L)
                 .country("Germany")
                 .build();
@@ -38,10 +39,6 @@ public class JsonParserTest {
                 .storageId(1L)
                 .build();
 
-        List<CountDrug> countDrugs = new ArrayList<>();
-        CountDrug countDrug = CountDrug.builder()
-                .count(4L)
-                .build();
 
 
         List<Provider> providers = new ArrayList<>();
@@ -50,9 +47,6 @@ public class JsonParserTest {
                 .providerName("C&C")
                 .build();
 
-        countDrug.setDrug(drug);
-        countDrugs.add(countDrug);
-        //storage.setCountDrugs(countDrugs);
         providers.add(provider);
         storage.setProviders(providers);
 

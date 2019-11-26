@@ -11,7 +11,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @XmlRootElement(name = "CountDrug")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class CountDrug {
