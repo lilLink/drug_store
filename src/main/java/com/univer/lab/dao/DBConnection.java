@@ -8,11 +8,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public abstract class Dao {
+public abstract class DBConnection {
 
     protected Connection connection;
 
-    public Dao() {
+    public DBConnection() {
         initConnection();
     }
 

@@ -12,12 +12,12 @@ import java.util.Objects;
 import static com.univer.lab.utility.ClassNameUtil.getClassName;
 import static org.apache.logging.log4j.LogManager.getLogger;
 
-public class SalesDao extends Dao implements BaseDao<Sales> {
+public class SalesDao extends DBConnection implements BaseDao<Sales> {
 
     public static final String FIND_ALL_QUERY = "SELECT * FROM sales";
-    public static final String UPDATE_ALL_QUERY = "UPDATE sales SET realization_date = ?, realization = ? WHERE sale_id = ?";
+    public static final String UPDATE_ALL_QUERY = "UPDATE sales SET realization_date = ?, realization = ?, drug_id = ? WHERE sale_id = ?";
     public static final String FIND_BY_ID_QUERY = "SELECT * FROM sales WHERE sale_id = ?";
-    public static final String INSERT_ALL_QUERY = "INSERT INTO sales (realization_date,realization) VALUES (?,?)";
+    public static final String INSERT_ALL_QUERY = "INSERT INTO sales (realization_date,realization,drug_id) VALUES (?,?,?)";
     public static final String DELETE_BY_ID_QUERY = "DELETE FROM sales WHERE sale_id = ?";
 
     public static final Logger LOGGER = getLogger(getClassName());
@@ -75,6 +75,7 @@ public class SalesDao extends Dao implements BaseDao<Sales> {
 
             statement.setLong(1,sale.getRealization());
             statement.setTimestamp(2, Timestamp.valueOf(sale.getRealizationDate().atStartOfDay()));
+            statement.setLong(3,sale.getDrug().getDrugId());
 
             if (sale.getSaleId() != null) {
                 statement.setLong(3, sale.getSaleId());

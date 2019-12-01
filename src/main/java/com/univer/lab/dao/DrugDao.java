@@ -14,7 +14,7 @@ import java.util.Objects;
 import static com.univer.lab.utility.ClassNameUtil.getClassName;
 import static org.apache.logging.log4j.LogManager.getLogger;
 
-public class DrugDao extends Dao implements BaseDao<Drug> {
+public class DrugDao extends DBConnection implements BaseDao<Drug> {
 
     public static final String FIND_ALL_QUERY = "SELECT * FROM drug";
     public static final String UPDATE_ALL_QUERY = "UPDATE drug SET country = ?, name = ?, price = ?, count = ? WHERE drug_id = ?";

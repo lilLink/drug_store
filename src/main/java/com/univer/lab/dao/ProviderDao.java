@@ -14,7 +14,7 @@ import java.util.Objects;
 import static com.univer.lab.utility.ClassNameUtil.getClassName;
 import static org.apache.logging.log4j.LogManager.getLogger;
 
-public class ProviderDao extends Dao implements BaseDao<Provider> {
+public class ProviderDao extends DBConnection implements BaseDao<Provider> {
 
     public static final String FIND_ALL_QUERY = "SELECT * FROM provider";
     public static final String UPDATE_ALL_QUERY = "UPDATE provider SET provider_name = ? WHERE provider_id = ?";
