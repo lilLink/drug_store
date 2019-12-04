@@ -14,7 +14,7 @@ import java.util.Objects;
 import static com.univer.lab.utility.ClassNameUtil.getClassName;
 import static org.apache.logging.log4j.LogManager.getLogger;
 
-public class StorageDao extends DBConnection implements BaseDao<Storage> {
+public class StorageDao extends DBConnection {
 
     public static final String FIND_ALL_QUERY = "SELECT * FROM storage";
     public static final String UPDATE_ALL_QUERY = "UPDATE storage SET provider_id = ? WHERE storage_id = ?";
@@ -24,7 +24,7 @@ public class StorageDao extends DBConnection implements BaseDao<Storage> {
 
     public static final Logger LOGGER = getLogger(getClassName());
 
-    @Override
+    //@Override
     public Storage findById(Long id){
         Storage storage = null;
         LOGGER.trace("Started finding by id {} in database", id);
@@ -35,10 +35,6 @@ public class StorageDao extends DBConnection implements BaseDao<Storage> {
             if (set.first()){
                 storage = new Storage();
                 storage.setStorageId(id);
-                storage.setProviders(set.getObject("country"));
-                storage.setName(set.getString("name"));
-                storage.setPrice(set.getLong("price"));
-                storage.setCount(set.getLong("count"));
             }
             LOGGER.trace("Storage {} found by id successfully", id);
         }catch (SQLException e){
@@ -47,7 +43,7 @@ public class StorageDao extends DBConnection implements BaseDao<Storage> {
         return storage;
     }
 
-    @Override
+    /*@Override
     public List<Storage> findAll(){
         List<Storage> resultList = new ArrayList<>();
         LOGGER.trace("Started finding all in database");
@@ -108,5 +104,5 @@ public class StorageDao extends DBConnection implements BaseDao<Storage> {
         }catch (SQLException e){
             LOGGER.warn("Storage {} wasn't delete in database", id, e);
         }
-    }
+    }*/
 }
