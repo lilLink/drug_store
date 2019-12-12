@@ -1,5 +1,7 @@
 package com.univer.lab.dao;
 
+import com.univer.lab.model.Provider;
+import com.univer.lab.model.Sales;
 import com.univer.lab.model.Storage;
 import org.apache.logging.log4j.Logger;
 
@@ -14,17 +16,19 @@ import java.util.Objects;
 import static com.univer.lab.utility.ClassNameUtil.getClassName;
 import static org.apache.logging.log4j.LogManager.getLogger;
 
-public class StorageDao extends DBConnection {
+public class StorageDao extends DBConnection implements BaseDao<Storage>{
 
     public static final String FIND_ALL_QUERY = "SELECT * FROM storage";
-    public static final String UPDATE_ALL_QUERY = "UPDATE storage SET provider_id = ? WHERE storage_id = ?";
+    public static final String UPDATE_ALL_QUERY = "UPDATE storage SET storage_number WHERE storage_id = ?";
     public static final String FIND_BY_ID_QUERY = "SELECT * FROM storage WHERE storage_id = ?";
-    public static final String INSERT_ALL_QUERY = "INSERT INTO storage (provider_id) VALUES (?)";
+    public static final String INSERT_ALL_QUERY = "INSERT INTO storage (storage_number) VALUES (?)";
     public static final String DELETE_BY_ID_QUERY = "DELETE FROM storage WHERE storage_id = ?";
+    public static final String GET_LIST_OF_PROVIDERS = "SELECT * FROM provider WHERE storage_id=? ";
+
 
     public static final Logger LOGGER = getLogger(getClassName());
 
-    //@Override
+    @Override
     public Storage findById(Long id){
         Storage storage = null;
         LOGGER.trace("Started finding by id {} in database", id);
@@ -32,9 +36,11 @@ public class StorageDao extends DBConnection {
             PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_QUERY);
             statement.setLong(1,id);
             ResultSet set = statement.executeQuery();
-            if (set.first()){
+            if (set.next()){
                 storage = new Storage();
                 storage.setStorageId(id);
+                storage.setStorageNumber(set.getLong("storage_number"));
+                storage.setProviders(getListProvider(storage));
             }
             LOGGER.trace("Storage {} found by id successfully", id);
         }catch (SQLException e){
@@ -43,7 +49,7 @@ public class StorageDao extends DBConnection {
         return storage;
     }
 
-    /*@Override
+    @Override
     public List<Storage> findAll(){
         List<Storage> resultList = new ArrayList<>();
         LOGGER.trace("Started finding all in database");
@@ -53,10 +59,8 @@ public class StorageDao extends DBConnection {
 
             while (set.next()){
                 Storage storage = new Storage();
-                storage.setCountry(set.getString("country"));
-                storage.setName(set.getString("name"));
-                storage.setPrice(set.getLong("price"));
-                storage.setCount(set.getLong("count"));
+                storage.setStorageNumber(set.getLong("storage_number"));
+                storage.setProviders(getListProvider(storage));
 
                 resultList.add(storage);
             }
@@ -70,18 +74,14 @@ public class StorageDao extends DBConnection {
     @Override
     public Long save(Storage storage) {
         try {
-            String actionQuery = (storage.getDrugId() == null) ? INSERT_ALL_QUERY
+            String actionQuery = (storage.getStorageId() == null) ? INSERT_ALL_QUERY
                     : UPDATE_ALL_QUERY;
             PreparedStatement statement = connection.prepareStatement(actionQuery);
 
+            statement.setLong(1,storage.getStorageNumber());
 
-            statement.setString(1,storage.getCountry());
-            statement.setString(2,storage.getName());
-            statement.setLong(3,storage.getPrice());
-            statement.setLong(4,storage.getCount());
-
-            if (storage.getDrugId() != null) {
-                statement.setLong(5, storage.getDrugId());
+            if (storage.getStorageId() != null) {
+                statement.setLong(2, storage.getStorageId());
             }
 
             statement.execute();
@@ -89,7 +89,7 @@ public class StorageDao extends DBConnection {
         }catch (SQLException e){
             LOGGER.warn("Storage {} wasn't entered in database", storage);
         }
-        return storage.getDrugId();
+        return storage.getStorageId();
     }
 
     @Override
@@ -104,5 +104,25 @@ public class StorageDao extends DBConnection {
         }catch (SQLException e){
             LOGGER.warn("Storage {} wasn't delete in database", id, e);
         }
-    }*/
+    }
+
+    public List<Provider> getListProvider(Storage storage){
+        List<Provider> providers = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(GET_LIST_OF_PROVIDERS);
+
+            statement.setLong(1,storage.getStorageId());
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+                Provider provider = new ProviderDao().resultSetToObj(resultSet);
+                providers.add(provider);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return providers;
+    }
 }

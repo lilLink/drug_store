@@ -17,9 +17,9 @@ import static org.apache.logging.log4j.LogManager.getLogger;
 public class ProviderDao extends DBConnection implements BaseDao<Provider> {
 
     public static final String FIND_ALL_QUERY = "SELECT * FROM provider";
-    public static final String UPDATE_ALL_QUERY = "UPDATE provider SET provider_name = ? WHERE provider_id = ?";
+    public static final String UPDATE_ALL_QUERY = "UPDATE provider SET provider_name = ?,storage_id = ? WHERE provider_id = ?";
     public static final String FIND_BY_ID_QUERY = "SELECT * FROM provider WHERE provider_id = ?";
-    public static final String INSERT_ALL_QUERY = "INSERT INTO provider (provider_name) VALUES (?)";
+    public static final String INSERT_ALL_QUERY = "INSERT INTO provider (provider_name,storage_id) VALUES (?,?)";
     public static final String DELETE_BY_ID_QUERY = "DELETE FROM provider WHERE provider_id = ?";
 
     public static final Logger LOGGER = getLogger(getClassName());
@@ -36,6 +36,7 @@ public class ProviderDao extends DBConnection implements BaseDao<Provider> {
                 provider = new Provider();
                 provider.setProviderId(id);
                 provider.setProviderName(set.getString("provider_name"));
+                provider.setStorage(new StorageDao().findById(set.getLong("storage_id")));
             }
             LOGGER.trace("Provider {} found by id successfully", id);
         }catch (SQLException e){
@@ -55,6 +56,7 @@ public class ProviderDao extends DBConnection implements BaseDao<Provider> {
             while (set.next()){
                 Provider provider = new Provider();
                 provider.setProviderName(set.getString("provider_name"));
+                provider.setStorage(new StorageDao().findById(set.getLong("storage_id")));
 
                 resultList.add(provider);
             }
@@ -74,9 +76,10 @@ public class ProviderDao extends DBConnection implements BaseDao<Provider> {
 
 
             statement.setString(1,provider.getProviderName());
+            statement.setLong(2,provider.getStorage().getStorageId());
 
             if (provider.getProviderId() != null) {
-                statement.setLong(2, provider.getProviderId());
+                statement.setLong(3, provider.getProviderId());
             }
 
             statement.execute();
@@ -99,5 +102,14 @@ public class ProviderDao extends DBConnection implements BaseDao<Provider> {
         }catch (SQLException e){
             LOGGER.warn("Provider {} wasn't delete in database", id, e);
         }
+    }
+
+    public Provider resultSetToObj(ResultSet rs) throws SQLException {
+        Provider provider = new Provider();
+
+        provider.setProviderId(rs.getLong("provider_id"));
+        provider.setProviderName(rs.getString("provider_name"));
+
+        return provider;
     }
 }

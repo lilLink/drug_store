@@ -25,11 +25,16 @@ public class Storage {
     @NotNull(message = "Provider must be not null")
     private List<Provider> providers;
 
+    @XmlElement
+    @NotNull
+    private Long storageNumber;
+
     @Override
     public String toString() {
         return "Storage{" +
                 "storageId=" + storageId +
                 ", providers=" + providers +
+                ", storageNumber=" + storageNumber +
                 '}';
     }
 }

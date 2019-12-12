@@ -28,25 +28,31 @@ public class Provider {
     @Size(min = 3, max = 24, message = "{Size.providerName}")
     private String providerName;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Provider provider = (Provider) o;
-        return Objects.equals(providerId, provider.providerId) &&
-                Objects.equals(providerName, provider.providerName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(providerId, providerName);
-    }
+    @XmlElement
+    @NotNull
+    private Storage storage;
 
     @Override
     public String toString() {
         return "Provider{" +
                 "providerId=" + providerId +
                 ", providerName='" + providerName + '\'' +
+                ", storage=" + storage +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Provider provider = (Provider) o;
+        return Objects.equals(providerId, provider.providerId) &&
+                Objects.equals(providerName, provider.providerName) &&
+                Objects.equals(storage, provider.storage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(providerId, providerName, storage);
     }
 }

@@ -17,9 +17,9 @@ import static org.apache.logging.log4j.LogManager.getLogger;
 public class DrugDao extends DBConnection implements BaseDao<Drug> {
 
     public static final String FIND_ALL_QUERY = "SELECT * FROM drug";
-    public static final String UPDATE_ALL_QUERY = "UPDATE drug SET country = ?, name = ?, price = ?, count = ? WHERE drug_id = ?";
+    public static final String UPDATE_ALL_QUERY = "UPDATE drug SET country = ?, name = ?, price = ?, count = ?,storage_id = ? WHERE drug_id = ?";
     public static final String FIND_BY_ID_QUERY = "SELECT * FROM drug WHERE drug_id = ?";
-    public static final String INSERT_ALL_QUERY = "INSERT INTO drug (country,name,price,count) VALUES (?,?,?,?)";
+    public static final String INSERT_ALL_QUERY = "INSERT INTO drug (country,name,price,count,storage_id) VALUES (?,?,?,?,?)";
     public static final String DELETE_BY_ID_QUERY = "DELETE FROM drug WHERE drug_id = ?";
 
     public static final Logger LOGGER = getLogger(getClassName());
@@ -32,13 +32,14 @@ public class DrugDao extends DBConnection implements BaseDao<Drug> {
             PreparedStatement statement = connection.prepareStatement(FIND_BY_ID_QUERY);
             statement.setLong(1,id);
             ResultSet set = statement.executeQuery();
-            if (set.first()){
+            if (set.next()){
                 drug = new Drug();
                 drug.setDrugId(id);
                 drug.setCountry(set.getString("country"));
                 drug.setName(set.getString("name"));
                 drug.setPrice(set.getLong("price"));
                 drug.setCount(set.getLong("count"));
+                drug.setStorage(new StorageDao().findById(set.getLong("storage_id")));
             }
             LOGGER.trace("Drug {} found by id successfully", id);
         }catch (SQLException e){
@@ -61,6 +62,7 @@ public class DrugDao extends DBConnection implements BaseDao<Drug> {
                 drug.setName(set.getString("name"));
                 drug.setPrice(set.getLong("price"));
                 drug.setCount(set.getLong("count"));
+                drug.setStorage(new StorageDao().findById(set.getLong("storage_id")));
 
                 resultList.add(drug);
             }
@@ -83,9 +85,10 @@ public class DrugDao extends DBConnection implements BaseDao<Drug> {
             statement.setString(2,drug.getName());
             statement.setLong(3,drug.getPrice());
             statement.setLong(4,drug.getCount());
+            statement.setLong(5,drug.getStorage().getStorageId());
 
             if (drug.getDrugId() != null) {
-                statement.setLong(5, drug.getDrugId());
+                statement.setLong(6, drug.getDrugId());
             }
 
             statement.execute();

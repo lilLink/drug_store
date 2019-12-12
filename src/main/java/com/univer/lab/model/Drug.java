@@ -74,4 +74,46 @@ public class Drug {
                 ", storage=" + storage +
                 '}';
     }
+
+    public static class Builder{
+        Drug drug;
+
+        public Builder(){
+            drug = new Drug();
+        }
+
+        public Builder setId(Long id){
+            drug.drugId = id;
+            return this;
+        }
+
+        public Builder setNameDrug(String name){
+            drug.name = name;
+            return this;
+        }
+
+        public Builder setPrice(Long price){
+            drug.price = price;
+            return this;
+        }
+
+        public Builder setCount(Long count){
+            drug.count = count;
+            return this;
+        }
+
+        public Builder setCountry(String country){
+            drug.country = country;
+            return this;
+        }
+
+        public Builder setStorage(Storage storage){
+            drug.storage = storage;
+            return this;
+        }
+
+        public Drug build(){
+            return drug;
+        }
+    }
 }

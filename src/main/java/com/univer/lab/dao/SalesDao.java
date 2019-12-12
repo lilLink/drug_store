@@ -1,5 +1,6 @@
 package com.univer.lab.dao;
 
+import com.univer.lab.model.Provider;
 import com.univer.lab.model.Sales;
 import org.apache.logging.log4j.Logger;
 
@@ -35,6 +36,7 @@ public class SalesDao extends DBConnection implements BaseDao<Sales> {
                 sale.setSaleId(id);
                 sale.setRealization(set.getLong("realization"));
                 sale.setRealizationDate(LocalDate.parse(set.getDate("realization_date").toString()));
+                sale.setDrug(new DrugDao().findById(set.getLong("drug_id")));
             }
             LOGGER.trace("Sales {} found by id successfully", id);
         }catch (SQLException e){
@@ -55,6 +57,7 @@ public class SalesDao extends DBConnection implements BaseDao<Sales> {
                 Sales sale = new Sales();
                 sale.setRealization(set.getLong("realization"));
                 sale.setRealizationDate(LocalDate.parse(set.getDate("realization_date").toString()));
+                sale.setDrug(new DrugDao().findById(set.getLong("drug_id")));
 
                 resultList.add(sale);
             }
@@ -78,7 +81,7 @@ public class SalesDao extends DBConnection implements BaseDao<Sales> {
             statement.setLong(3,sale.getDrug().getDrugId());
 
             if (sale.getSaleId() != null) {
-                statement.setLong(3, sale.getSaleId());
+                statement.setLong(4, sale.getSaleId());
             }
 
             statement.execute();
@@ -102,4 +105,5 @@ public class SalesDao extends DBConnection implements BaseDao<Sales> {
             LOGGER.warn("Sales {} wasn't delete in database", id, e);
         }
     }
+
 }
