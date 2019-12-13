@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -54,5 +55,32 @@ public class Provider {
     @Override
     public int hashCode() {
         return Objects.hash(providerId, providerName, storage);
+    }
+
+    public static class Builder{
+        Provider provider;
+
+        public Builder(){
+            provider = new Provider();
+        }
+
+        public Builder setId(Long id){
+            provider.providerId = id;
+            return this;
+        }
+
+        public Builder setNameProvider(String name){
+            provider.providerName = name;
+            return this;
+        }
+
+        public Builder setStorageProvider(Storage storage){
+            provider.storage = storage;
+            return this;
+        }
+
+        public Provider build(){
+            return provider;
+        }
     }
 }

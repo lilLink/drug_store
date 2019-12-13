@@ -12,9 +12,9 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @XmlRootElement(name = "Drug")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Drug {

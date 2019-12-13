@@ -26,23 +26,21 @@ public class XmlParserTest {
                 .realizationDate(LocalDate.parse("2019-04-10"))
                 .build();
 
-        Drug drug = Drug.builder()
-                .drugId(1L)
-                .name("Pantenol")
-                .count(42L)
-                .price(120L)
-                .country("Germany")
-                .build();
+        Drug drug = new Drug();
+                drug.setDrugId(1L);
+                drug.setName("Pantenol");
+                drug.setCount(42L);
+                drug.setPrice(120L);
+                drug.setCountry("Germany");
 
         Storage storage = Storage.builder()
                 .storageId(1L)
                 .build();
 
         List<Provider> providers = new ArrayList<>();
-        Provider provider = Provider.builder()
-                .providerId(1L)
-                .providerName("C&C")
-                .build();
+        Provider provider = new Provider();
+                provider.setProviderId(1L);
+                provider.setProviderName("C&C");
 
         providers.add(provider);
         storage.setProviders(providers);

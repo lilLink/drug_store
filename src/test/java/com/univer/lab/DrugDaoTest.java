@@ -48,7 +48,7 @@ public class DrugDaoTest {
         drug.setStorage(storage);
 
         drugForUpdate = new Drug();
-        drugForUpdate.setDrugId(5L);
+        drugForUpdate.setDrugId(6L);
         drugForUpdate.setCount(20L);
         drugForUpdate.setPrice(60L);
         drugForUpdate.setCountry("Germany");
@@ -79,6 +79,6 @@ public class DrugDaoTest {
 
     @Test
     public void deleteTest(){
-        drugDao.deleteById(4L);
+        drugDao.deleteById(5L);
     }
 }
